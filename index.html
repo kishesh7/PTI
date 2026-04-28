@@ -1,0 +1,748 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pyramid Technical Institute | Itahari, Sunsari</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #38BDF8;
+  --sky-deep: #0EA5E9;
+  --sky-dark: #0369A1;
+  --sky-darker: #075985;
+  --sky-light: #E0F4FD;
+  --sky-pale: #F0FAFF;
+  --white: #FFFFFF;
+  --off-white: #F8FBFF;
+  --teal: #0D9488;
+  --teal-light: #CCFBF1;
+  --coral: #F43F5E;
+  --coral-light: #FFE4E9;
+  --amber: #F59E0B;
+  --amber-light: #FEF3C7;
+  --violet: #7C3AED;
+  --violet-light: #EDE9FE;
+  --emerald: #059669;
+  --emerald-light: #D1FAE5;
+  --orange: #EA580C;
+  --orange-light: #FFEDD5;
+  --text: #0C1A2E;
+  --text2: #334155;
+  --text3: #64748B;
+  --border: rgba(56,189,248,0.18);
+  --border2: rgba(56,189,248,0.35);
+  --shadow-sky: 0 8px 32px rgba(56,189,248,0.18);
+  --shadow: 0 4px 20px rgba(12,26,46,0.08);
+  --radius: 16px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Outfit',sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
+
+.announcement {
+  background:linear-gradient(90deg,var(--sky-dark),var(--teal));
+  padding:9px 5%; text-align:center; font-size:13px; font-weight:500; color:#fff;
+  position:fixed; top:0; left:0; right:0; z-index:1001;
+}
+.announcement a { color:var(--amber); font-weight:700; }
+
+nav {
+  position:fixed; top:37px; left:0; right:0; z-index:1000;
+  background:rgba(255,255,255,0.96); backdrop-filter:blur(16px);
+  border-bottom:1.5px solid var(--border);
+  box-shadow:0 2px 16px rgba(56,189,248,0.1);
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1240px; margin:0 auto; height:68px; padding:0 5%;
+}
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.logo-tri { width:42px; height:38px; flex-shrink:0; }
+.logo-tri svg { width:100%; height:100%; }
+.logo-words .n { font-family:'Lora',serif; font-size:16px; font-weight:700; color:var(--sky-darker); line-height:1.1; }
+.logo-words .s { font-size:10px; color:var(--sky-deep); letter-spacing:1.2px; text-transform:uppercase; margin-top:1px; }
+
+.nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
+.nav-links a { color:var(--text2); text-decoration:none; font-size:14px; font-weight:500; padding:7px 15px; border-radius:8px; transition:all 0.2s; }
+.nav-links a:hover { color:var(--sky-dark); background:var(--sky-light); }
+.nav-cta { background:linear-gradient(135deg,var(--sky-deep),var(--sky-dark)) !important; color:#fff !important; font-weight:600 !important; box-shadow:var(--shadow-sky); padding:9px 22px !important; border-radius:10px !important; }
+.nav-cta:hover { opacity:.9; transform:translateY(-1px); }
+
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
+.hamburger span { display:block; width:24px; height:2px; background:var(--sky-dark); border-radius:2px; }
+.mobile-menu { display:none; position:fixed; inset:0; z-index:999; background:#fff; padding:100px 5% 40px; flex-direction:column; gap:6px; }
+.mobile-menu.open { display:flex; }
+.mobile-menu a { color:var(--text2); text-decoration:none; font-size:18px; font-weight:500; padding:14px 0; border-bottom:1px solid var(--border); }
+
+/* HERO */
+#hero {
+  min-height:100vh;
+  background:linear-gradient(145deg,#EAF7FF 0%,#DBEEFF 40%,#F0FAFF 70%,#E8F8F8 100%);
+  display:flex; align-items:center; position:relative; overflow:hidden;
+  padding:100px 5% 80px;
+}
+.hero-blob1 { position:absolute; top:-120px; right:-80px; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(56,189,248,0.25) 0%,transparent 70%); pointer-events:none; }
+.hero-blob2 { position:absolute; bottom:-100px; left:-60px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(13,148,136,0.15) 0%,transparent 70%); pointer-events:none; }
+.hero-dots { position:absolute; inset:0; opacity:.035; background-image:radial-gradient(circle,var(--sky-deep) 1.5px,transparent 1.5px); background-size:32px 32px; }
+.hero-wave { position:absolute; bottom:0; left:0; right:0; }
+
+.hero-inner { max-width:1240px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; position:relative; z-index:1; }
+
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(56,189,248,0.12); border:1.5px solid rgba(56,189,248,0.3); border-radius:100px; padding:7px 18px; margin-bottom:24px; font-size:12px; color:var(--sky-dark); font-weight:600; letter-spacing:.8px; }
+.hero-badge .dot { width:7px; height:7px; border-radius:50%; background:var(--sky-deep); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+
+.hero-title { font-family:'Lora',serif; font-size:clamp(36px,5vw,60px); font-weight:700; line-height:1.12; color:var(--text); margin-bottom:22px; }
+.hero-title .hl { background:linear-gradient(135deg,var(--sky-deep),var(--teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-desc { font-size:16.5px; line-height:1.8; color:var(--text3); margin-bottom:36px; max-width:500px; }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+
+.btn-sky { background:linear-gradient(135deg,var(--sky-deep),var(--sky-dark)); color:#fff; font-weight:700; font-size:14.5px; padding:14px 30px; border-radius:12px; text-decoration:none; border:none; cursor:pointer; box-shadow:0 6px 20px rgba(14,165,233,.35); transition:all .2s; display:inline-block; }
+.btn-sky:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(14,165,233,.45); }
+.btn-white { background:#fff; color:var(--sky-dark); font-weight:600; font-size:14.5px; padding:14px 30px; border-radius:12px; text-decoration:none; border:2px solid var(--border2); transition:all .2s; display:inline-block; }
+.btn-white:hover { background:var(--sky-light); border-color:var(--sky-deep); }
+
+.hero-stats { display:flex; gap:28px; margin-top:44px; padding-top:36px; border-top:1.5px solid rgba(56,189,248,.2); flex-wrap:wrap; }
+.stat-num { font-family:'Lora',serif; font-size:30px; font-weight:700; background:linear-gradient(135deg,var(--sky-deep),var(--sky-darker)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.stat-label { font-size:12px; color:var(--text3); margin-top:2px; font-weight:500; }
+
+.hero-visual { display:flex; justify-content:center; align-items:center; }
+.hero-card-float { position:relative; width:340px; height:380px; }
+.float-card { position:absolute; background:#fff; border-radius:16px; padding:18px 22px; box-shadow:0 8px 32px rgba(12,26,46,.1); border:1px solid rgba(56,189,248,.2); }
+.fc1 { top:0; left:0; right:0; }
+.fc2 { bottom:60px; left:10px; right:40px; }
+.fc3 { bottom:0; right:0; width:160px; }
+.fc-icon { font-size:24px; margin-bottom:10px; }
+.fc-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.fc-sub { font-size:11px; color:var(--text3); }
+.fc-stat { font-family:'Lora',serif; font-size:28px; font-weight:700; color:var(--sky-deep); }
+.fc-stat-label { font-size:11px; color:var(--text3); margin-top:2px; }
+
+section { padding:80px 5%; }
+.container { max-width:1240px; margin:0 auto; }
+.sec-label { display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--sky-dark); margin-bottom:14px; }
+.sec-label::before { content:''; width:28px; height:2.5px; background:linear-gradient(90deg,var(--sky-deep),var(--teal)); border-radius:2px; }
+.sec-title { font-family:'Lora',serif; font-size:clamp(26px,3.5vw,42px); font-weight:700; line-height:1.2; margin-bottom:16px; color:var(--text); }
+.sec-desc { font-size:16px; color:var(--text3); line-height:1.8; max-width:560px; }
+
+/* STATS STRIP */
+#stats-strip { padding:0; background:linear-gradient(135deg,var(--sky-deep),var(--sky-darker),var(--teal)); }
+.stats-strip-inner { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); padding:0 5%; }
+.strip-stat { padding:36px 28px; text-align:center; border-right:1px solid rgba(255,255,255,.15); }
+.strip-stat:last-child { border-right:none; }
+.strip-num { font-family:'Lora',serif; font-size:40px; font-weight:700; color:#fff; line-height:1; }
+.strip-label { font-size:13px; color:rgba(255,255,255,.7); margin-top:6px; font-weight:500; }
+.strip-icon { font-size:22px; margin-bottom:10px; }
+
+/* ABOUT */
+#about { background:var(--off-white); }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; margin-top:48px; }
+.about-visual { position:relative; }
+.about-main-card { background:linear-gradient(145deg,var(--sky-deep),var(--sky-darker),var(--teal)); border-radius:20px; padding:40px; position:relative; overflow:hidden; }
+.about-main-card::before { content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,.08); }
+.about-card-title { font-family:'Lora',serif; font-size:22px; color:#fff; font-weight:700; margin-bottom:8px; }
+.about-card-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:28px; }
+.about-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+.about-chip { background:rgba(255,255,255,.15); color:#fff; font-size:11px; font-weight:600; padding:5px 12px; border-radius:100px; border:1px solid rgba(255,255,255,.25); }
+.about-metrics { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.about-metric { background:rgba(255,255,255,.12); border-radius:10px; padding:14px; text-align:center; }
+.about-metric .num { font-family:'Lora',serif; font-size:22px; font-weight:700; color:#fff; }
+.about-metric .lbl { font-size:10px; color:rgba(255,255,255,.6); margin-top:3px; }
+.about-float-card { position:absolute; bottom:-18px; right:-18px; background:#fff; border-radius:14px; padding:18px 22px; text-align:center; box-shadow:0 8px 32px rgba(12,26,46,.15); border:1.5px solid var(--border); }
+.about-float-num { font-family:'Lora',serif; font-size:34px; font-weight:700; background:linear-gradient(135deg,var(--amber),var(--coral)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.about-float-lbl { font-size:11px; color:var(--text3); margin-top:2px; font-weight:600; }
+.mission-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
+.mission-card { background:#fff; border-radius:14px; padding:22px; border:1.5px solid var(--border); transition:all .2s; }
+.mission-card:hover { border-color:var(--sky-deep); box-shadow:var(--shadow-sky); transform:translateY(-3px); }
+.mission-icon { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:12px; }
+.mission-card h4 { font-size:14px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.mission-card p { font-size:13px; color:var(--text3); line-height:1.6; }
+
+/* TRAININGS */
+#trainings { background:#fff; }
+.tabs { display:flex; gap:4px; margin:32px 0 28px; background:var(--sky-pale); border-radius:12px; padding:5px; width:fit-content; border:1.5px solid var(--border); }
+.tab-btn { padding:10px 24px; border-radius:9px; font-size:13.5px; font-weight:600; cursor:pointer; border:none; background:none; color:var(--text3); font-family:'Outfit',sans-serif; transition:all .2s; }
+.tab-btn.active { background:linear-gradient(135deg,var(--sky-deep),var(--sky-dark)); color:#fff; box-shadow:0 3px 12px rgba(14,165,233,.3); }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.training-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:22px; }
+.training-card { background:#fff; border-radius:16px; border:1.5px solid var(--border); overflow:hidden; transition:all .25s; }
+.training-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-sky); border-color:var(--sky-deep); }
+.card-color-bar { height:4px; }
+.ccb-tech { background:linear-gradient(90deg,var(--sky-deep),var(--teal)); }
+.ccb-health { background:linear-gradient(90deg,var(--emerald),var(--teal)); }
+.ccb-voc { background:linear-gradient(90deg,var(--orange),var(--amber)); }
+.ccb-biz { background:linear-gradient(90deg,var(--violet),var(--coral)); }
+.card-header { padding:18px 22px 0; display:flex; justify-content:space-between; align-items:flex-start; }
+.cat-badge { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; padding:4px 11px; border-radius:100px; }
+.cat-tech { background:var(--sky-light); color:var(--sky-dark); }
+.cat-health { background:var(--emerald-light); color:var(--emerald); }
+.cat-voc { background:var(--orange-light); color:var(--orange); }
+.cat-biz { background:var(--violet-light); color:var(--violet); }
+.status-pill { font-size:11px; font-weight:700; padding:4px 11px; border-radius:100px; }
+.sp-open { background:#ECFDF5; color:#059669; }
+.sp-ongoing { background:#FFF7ED; color:#EA580C; }
+.sp-completed { background:#EFF6FF; color:#2563EB; }
+.card-body { padding:16px 22px 18px; }
+.card-title { font-family:'Lora',serif; font-size:17px; font-weight:700; color:var(--text); margin:10px 0 8px; line-height:1.3; }
+.card-desc { font-size:13.5px; color:var(--text3); line-height:1.65; margin-bottom:16px; }
+.card-meta { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; }
+.meta-row { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text3); }
+.meta-row .dot { width:5px; height:5px; border-radius:50%; background:var(--sky-deep); flex-shrink:0; }
+.prog-bar-wrap { margin:14px 0; }
+.prog-label { display:flex; justify-content:space-between; font-size:11px; color:var(--text3); margin-bottom:5px; }
+.prog-bar { height:6px; background:var(--sky-light); border-radius:3px; overflow:hidden; }
+.prog-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--sky-deep),var(--teal)); }
+.card-footer { padding:13px 22px; background:var(--sky-pale); border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+.seats-txt { font-size:12px; color:var(--text3); }
+.seats-txt strong { color:var(--text); }
+.btn-sm-sky { font-size:12.5px; font-weight:700; padding:8px 18px; border-radius:8px; background:linear-gradient(135deg,var(--sky-deep),var(--sky-dark)); color:#fff; border:none; cursor:pointer; box-shadow:0 3px 10px rgba(14,165,233,.25); transition:all .2s; text-decoration:none; display:inline-block; }
+.btn-sm-sky:hover { box-shadow:0 5px 16px rgba(14,165,233,.4); transform:translateY(-1px); }
+.btn-sm-ghost { font-size:12.5px; font-weight:600; padding:8px 16px; border-radius:8px; background:none; color:var(--text3); border:1.5px solid var(--border); cursor:pointer; transition:all .2s; }
+.btn-sm-ghost:hover { border-color:var(--sky-deep); color:var(--sky-dark); }
+
+/* REGISTER */
+#register { background:linear-gradient(145deg,var(--sky-darker) 0%,var(--sky-dark) 50%,var(--teal) 100%); position:relative; overflow:hidden; }
+#register::before { content:''; position:absolute; top:-100px; left:-100px; width:500px; height:500px; border-radius:50%; background:rgba(255,255,255,.04); }
+#register::after { content:''; position:absolute; bottom:-100px; right:-80px; width:400px; height:400px; border-radius:50%; background:rgba(255,255,255,.05); }
+#register .sec-title { color:#fff; }
+#register .sec-label { color:rgba(255,255,255,.7); }
+#register .sec-label::before { background:rgba(255,255,255,.4); }
+#register .sec-desc { color:rgba(255,255,255,.6); }
+.reg-grid { display:grid; grid-template-columns:1fr 1fr; gap:50px; margin-top:48px; align-items:start; position:relative; z-index:1; }
+.form-glass { background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2); border-radius:20px; padding:36px; backdrop-filter:blur(8px); }
+.form-glass h3 { font-family:'Lora',serif; color:#fff; font-size:22px; margin-bottom:24px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.fg { margin-bottom:16px; }
+.fg label { display:block; font-size:12.5px; font-weight:600; color:rgba(255,255,255,.7); margin-bottom:8px; }
+.fg input,.fg select,.fg textarea { width:100%; padding:12px 16px; background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2); border-radius:10px; color:#fff; font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color .2s; }
+.fg input:focus,.fg select:focus,.fg textarea:focus { border-color:rgba(255,255,255,.6); }
+.fg input::placeholder,.fg textarea::placeholder { color:rgba(255,255,255,.35); }
+.fg select option { background:var(--sky-darker); }
+.reg-info { color:#fff; }
+.reg-step { display:flex; gap:18px; margin-bottom:28px; }
+.step-num { width:42px; height:42px; flex-shrink:0; background:rgba(255,255,255,.12); border:1.5px solid rgba(255,255,255,.25); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-size:16px; font-weight:700; color:#fff; }
+.step-body h4 { color:#fff; font-size:15px; margin-bottom:6px; }
+.step-body p { color:rgba(255,255,255,.55); font-size:13.5px; line-height:1.65; }
+.reg-note { background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2); border-radius:12px; padding:18px 20px; margin-top:20px; }
+.reg-note p { font-size:13px; color:rgba(255,255,255,.65); line-height:1.65; }
+.reg-note strong { color:var(--amber); }
+
+/* SUPPORTERS */
+#supporters { background:var(--off-white); }
+.supporter-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:18px; margin-top:44px; }
+.supporter-card { background:#fff; border-radius:16px; border:1.5px solid var(--border); padding:28px 20px; text-align:center; transition:all .2s; }
+.supporter-card:hover { border-color:var(--sky-deep); box-shadow:var(--shadow-sky); transform:translateY(-4px); }
+.sup-logo { width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-size:18px; font-weight:700; margin:0 auto 14px; }
+.sup-name { font-size:14px; font-weight:700; color:var(--text); margin-bottom:5px; }
+.sup-type { font-size:12px; color:var(--text3); margin-bottom:12px; }
+.sup-since { font-size:11px; font-weight:700; color:var(--sky-dark); letter-spacing:.5px; }
+
+/* IMPACT */
+#impact { background:linear-gradient(145deg,#EAF7FF,#E0F4FD,#CCFBF1); position:relative; overflow:hidden; }
+#impact::before { content:''; position:absolute; top:-60px; right:-60px; width:350px; height:350px; border-radius:50%; background:radial-gradient(circle,rgba(56,189,248,.12),transparent 70%); }
+.impact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px; margin-top:48px; }
+.impact-card { background:#fff; border-radius:16px; border:1.5px solid var(--border); padding:28px 24px; text-align:center; transition:all .2s; position:relative; overflow:hidden; }
+.impact-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-sky); }
+.impact-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.ic1::before { background:linear-gradient(90deg,var(--sky-deep),var(--teal)); }
+.ic2::before { background:linear-gradient(90deg,var(--coral),var(--amber)); }
+.ic3::before { background:linear-gradient(90deg,var(--emerald),var(--sky-deep)); }
+.ic4::before { background:linear-gradient(90deg,var(--violet),var(--coral)); }
+.ic5::before { background:linear-gradient(90deg,var(--amber),var(--orange)); }
+.ic6::before { background:linear-gradient(90deg,var(--teal),var(--emerald)); }
+.ic7::before { background:linear-gradient(90deg,var(--sky-dark),var(--violet)); }
+.ic8::before { background:linear-gradient(90deg,var(--orange),var(--coral)); }
+.impact-icon { font-size:30px; margin-bottom:14px; }
+.impact-num { font-family:'Lora',serif; font-size:40px; font-weight:700; background:linear-gradient(135deg,var(--sky-deep),var(--sky-darker)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; margin-bottom:8px; }
+.impact-label { font-size:13px; color:var(--text3); line-height:1.5; font-weight:500; }
+
+/* GALLERY */
+#gallery { background:#fff; }
+.gallery-grid { display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:210px 210px; gap:14px; margin-top:40px; border-radius:20px; overflow:hidden; }
+.gallery-item { border-radius:12px; overflow:hidden; display:flex; align-items:flex-end; padding:20px; position:relative; cursor:pointer; }
+.gallery-item:first-child { grid-row:span 2; }
+
+.g-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(7,89,133,.75) 0%,transparent 60%); }
+.g-label { position:relative; z-index:1; color:#fff; }
+.g-label .title { font-family:'Lora',serif; font-size:15px; font-weight:700; }
+.g-label .sub { font-size:11px; color:rgba(255,255,255,.7); margin-top:3px; }
+.g1 { background:linear-gradient(135deg,#0369A1,#0891B2); }
+.g2 { background:linear-gradient(135deg,#047857,#059669); }
+.g3 { background:linear-gradient(135deg,#B45309,#D97706); }
+.g4 { background:linear-gradient(135deg,#6D28D9,#7C3AED); }
+.g5 { background:linear-gradient(135deg,#0D9488,#14B8A6); }
+
+/* CONTACT */
+#contact { background:var(--sky-pale); }
+.contact-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:60px; margin-top:48px; align-items:start; }
+.contact-item { display:flex; gap:16px; margin-bottom:26px; }
+.contact-icon { width:46px; height:46px; flex-shrink:0; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; background:var(--sky-light); }
+.contact-body h4 { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.contact-body p { font-size:13.5px; color:var(--text3); line-height:1.65; }
+.map-box { background:linear-gradient(135deg,var(--sky-deep),var(--sky-darker),var(--teal)); border-radius:14px; height:200px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; margin-top:20px; }
+.map-box p { color:rgba(255,255,255,.65); font-size:13px; }
+.map-box a { color:var(--amber); font-size:13px; font-weight:700; text-decoration:none; border:1.5px solid rgba(245,158,11,.5); padding:8px 18px; border-radius:8px; transition:all .2s; }
+.map-box a:hover { background:rgba(245,158,11,.15); }
+.contact-form-card { background:#fff; border-radius:20px; padding:36px; border:1.5px solid var(--border); box-shadow:var(--shadow); }
+.contact-form-card h3 { font-family:'Lora',serif; font-size:22px; margin-bottom:24px; color:var(--text); }
+.contact-form-card .fg label { color:var(--text3); }
+.contact-form-card input,.contact-form-card select,.contact-form-card textarea { width:100%; padding:12px 16px; background:var(--sky-pale); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color .2s; }
+.contact-form-card input:focus,.contact-form-card select:focus,.contact-form-card textarea:focus { border-color:var(--sky-deep); background:#fff; }
+
+/* FOOTER */
+footer { background:var(--sky-darker); padding:64px 5% 32px; }
+.footer-inner { max-width:1240px; margin:0 auto; }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; }
+.footer-brand p { font-size:13.5px; color:rgba(255,255,255,.45); line-height:1.75; margin-top:16px; }
+.footer-logo .n { color:#fff; }
+.footer-logo .s { color:var(--sky); }
+.footer-socials { display:flex; gap:8px; margin-top:20px; }
+.social-btn { width:36px; height:36px; border-radius:8px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.45); font-size:13px; text-decoration:none; transition:all .2s; }
+.social-btn:hover { background:rgba(56,189,248,.2); color:var(--sky); border-color:rgba(56,189,248,.4); }
+.footer-col h5 { color:#fff; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:18px; }
+.footer-col ul { list-style:none; }
+.footer-col ul li { margin-bottom:10px; }
+.footer-col ul li a { color:rgba(255,255,255,.45); font-size:13.5px; text-decoration:none; transition:color .2s; }
+.footer-col ul li a:hover { color:var(--sky); }
+.footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.footer-bottom p { font-size:12.5px; color:rgba(255,255,255,.3); }
+.footer-bottom a { color:var(--sky); text-decoration:none; }
+
+.toast { position:fixed; bottom:28px; right:28px; background:#fff; color:var(--text); border:1.5px solid var(--border); padding:14px 22px; border-radius:12px; font-size:14px; z-index:9999; font-weight:500; transform:translateY(80px); opacity:0; transition:all .3s; pointer-events:none; box-shadow:0 8px 32px rgba(12,26,46,.12); min-width:240px; }
+.toast.show { transform:translateY(0); opacity:1; }
+
+@media(max-width:960px){
+  .hero-inner,.about-grid,.reg-grid,.contact-grid { grid-template-columns:1fr; gap:40px; }
+  .hero-visual { display:none; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .gallery-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+  .gallery-item:first-child { grid-row:auto; }
+  .stats-strip-inner { grid-template-columns:1fr 1fr; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+}
+@media(max-width:600px){
+  section { padding:60px 5%; }
+  .footer-grid { grid-template-columns:1fr; }
+  .hero-stats { flex-wrap:wrap; gap:18px; }
+  .mission-grid { grid-template-columns:1fr; }
+  .announcement { font-size:11px; padding:8px 3%; }
+  .strip-stat { padding:24px 16px; }
+  .strip-num { font-size:28px; }
+  .form-row { grid-template-columns:1fr; }
+  .supporter-grid { grid-template-columns:1fr 1fr; }
+}
+
+/* Logo container */
+.logo-tri {
+    display: flex;
+    align-items: center;
+}
+
+/* Image styling */
+.logo-tri img {
+    height: 42px;       /* adjust size */
+    width: auto;
+    object-fit: contain;
+    cursor: pointer;
+}
+.logo-tri img:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+.gallery-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+</head>
+<body>
+
+<div class="announcement">
+  🎓 New Batch Starting: Computer Hardware &amp; Networking — <a href="#register">Apply Now →</a>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-tri">
+     <img src="images/pyramidlogo.jpeg" alt="Company Logo">      
+      </div>
+      <div class="logo-words"><div class="n">Pyramid Technical Institute</div><div class="s">Itahari, Sunsari · Est. 2011</div></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#trainings">Programs</a></li>
+      <li><a href="#register">Register</a></li>
+      <li><a href="#supporters">Partners</a></li>
+      <li><a href="#impact">Impact</a></li>   
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#register" class="nav-cta">Enroll Now</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">About Us</a>
+  <a href="#trainings" onclick="toggleMenu()">Training Programs</a>
+  <a href="#register" onclick="toggleMenu()">Register</a>
+  <a href="#supporters" onclick="toggleMenu()">Partners</a>
+  <a href="#impact" onclick="toggleMenu()">Impact</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob1"></div><div class="hero-blob2"></div><div class="hero-dots"></div>
+  <div class="hero-inner container">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> Registered NGO · Itahari, Sunsari</div>
+      <h1 class="hero-title">Building Skills,<br><span class="hl">Transforming</span><br>Communities</h1>
+      <p class="hero-desc">Pyramid Technical Institute empowers youth across Sunsari with quality CTEVT-affiliated vocational training. We bridge the gap between skills and opportunity for a brighter Nepal.</p>
+      <div class="hero-btns">
+        <a href="#trainings" class="btn-sky">Explore Programs</a>
+        <a href="#register" class="btn-white">Register Today</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">1,800+</div><div class="stat-label">Graduates</div></div>
+        <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">Programs</div></div>
+        <div class="stat-item"><div class="stat-num">14+</div><div class="stat-label">Partner NGOs</div></div>
+        <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Placement Rate</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-float">
+        <div class="float-card fc1">
+          <div class="fc-icon">🎓</div>
+          <div class="fc-title">CTEVT Affiliated Training</div>
+          <div class="fc-sub">Nationally recognized certifications across 24 programs</div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+            <span style="font-size:11px;background:var(--sky-light);color:var(--sky-dark);padding:4px 10px;border-radius:100px;font-weight:600;">Technology</span>
+            <span style="font-size:11px;background:var(--emerald-light);color:var(--emerald);padding:4px 10px;border-radius:100px;font-weight:600;">Healthcare</span>
+            <span style="font-size:11px;background:var(--orange-light);color:var(--orange);padding:4px 10px;border-radius:100px;font-weight:600;">Vocational</span>
+          </div>
+        </div>
+        <div class="float-card fc2">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div class="fc-stat">98%</div>
+            <div><div class="fc-title">Placement Rate</div><div class="fc-sub">Employed within 3 months</div></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,0 1080,80 1440,20 L1440,60 L0,60 Z" fill="#FFFFFF"/></svg>
+</section>
+
+<!-- STATS STRIP -->
+<div id="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="strip-stat"><div class="strip-icon">🎓</div><div class="strip-num">1,842</div><div class="strip-label">Total Graduates</div></div>
+    <div class="strip-stat"><div class="strip-icon">👩</div><div class="strip-num">64%</div><div class="strip-label">Women Trained</div></div>
+    <div class="strip-stat"><div class="strip-icon">🏘️</div><div class="strip-num">40+</div><div class="strip-label">Villages Reached</div></div>
+    <div class="strip-stat"><div class="strip-icon">🌱</div><div class="strip-num">320+</div><div class="strip-label">Businesses Started</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sec-label">Who We Are</div>
+    <h2 class="sec-title">Empowering Communities<br>Through Technical Education</h2>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-main-card">
+          <div class="about-card-title">Pyramid Technical Institute</div>
+          <div class="about-card-sub">Registered under Social Welfare Council, Nepal · Reg. No: 107615/069/070</div>
+          <div class="about-chips"><span class="about-chip">CTEVT Affiliated</span><span class="about-chip">ISO Certified</span><span class="about-chip">SWC Registered</span><span class="about-chip">Est. 2010</span></div>
+          <div class="about-metrics">
+            <div class="about-metric"><div class="num">14+</div><div class="lbl">Years Active</div></div>
+            <div class="about-metric"><div class="num">24</div><div class="lbl">Programs</div></div>
+            <div class="about-metric"><div class="num">98%</div><div class="lbl">Placement</div></div>
+          </div>
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);">
+            <svg viewBox="0 0 300 80" style="width:100%;opacity:.3" xmlns="http://www.w3.org/2000/svg"><polygon points="150,10 200,70 100,70" fill="none" stroke="#fff" stroke-width="1.5"/><polygon points="150,22 190,70 110,70" fill="none" stroke="#fff" stroke-width="1"/><polygon points="150,34 180,70 120,70" fill="none" stroke="#fff" stroke-width=".7"/><circle cx="150" cy="10" r="3" fill="#fff"/></svg>
+          </div>
+        </div>
+        <div class="about-float-card"><div class="about-float-num">98%</div><div class="about-float-lbl">Placement Rate</div></div>
+      </div>
+      <div>
+        <p style="font-size:16px;color:var(--text3);line-height:1.85;margin-bottom:18px;">Pyramid Technical Institute (PTI) is a non-governmental organization committed to reducing unemployment and enhancing livelihood opportunities in the Sunsari district of Province No. 1, Nepal.</p>
+        <p style="font-size:16px;color:var(--text3);line-height:1.85;margin-bottom:28px;">Founded in 2011, we deliver CTEVT-affiliated technical and vocational training to youth, women, and marginalized communities — equipping them with skills for dignified careers and sustainable livelihoods.</p>
+        <div class="mission-grid">
+          <div class="mission-card"><div class="mission-icon" style="background:var(--sky-light);">🎯</div><h4>Our Mission</h4><p>Deliver accessible, quality technical education to build a skilled workforce in eastern Nepal.</p></div>
+          <div class="mission-card"><div class="mission-icon" style="background:var(--emerald-light);">🌱</div><h4>Our Vision</h4><p>A self-reliant community where every individual has skills to lead a dignified life.</p></div>
+          <div class="mission-card"><div class="mission-icon" style="background:var(--violet-light);">🤝</div><h4>Inclusivity</h4><p>Special focus on women, Dalit, Janajati, and marginalized youth for equitable access.</p></div>
+          <div class="mission-card"><div class="mission-icon" style="background:var(--amber-light);">🏆</div><h4>Quality</h4><p>Industry-aligned, practical hands-on training with CTEVT-certified instructors.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAININGS -->
+<section id="trainings">
+  <div class="container">
+    <div class="sec-label">Our Programs</div>
+    <h2 class="sec-title">Training Programs</h2>
+    <p class="sec-desc">Comprehensive vocational and technical training programs designed to meet real market demands.</p>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('upcoming',this)">Upcoming</button>
+      <button class="tab-btn" onclick="switchTab('ongoing',this)">Ongoing</button>
+      <button class="tab-btn" onclick="switchTab('completed',this)">Completed</button>
+    </div>
+
+    <div class="tab-content active" id="tab-upcoming">
+      <div class="training-grid">
+        <div class="training-card"><div class="card-color-bar ccb-tech"></div><div class="card-header"><span class="cat-badge cat-tech">Technology</span><span class="status-pill sp-open">Open</span></div><div class="card-body"><div class="card-title">Computer Hardware &amp; Networking (CHN)</div><p class="card-desc">Install, configure, and maintain computer systems and networks. Includes CISCO basics and CompTIA A+ fundamentals.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch Start: Baisakh 15, 2082</div><div class="meta-row"><span class="dot"></span>Duration: 3 Months · CTEVT Level 2</div><div class="meta-row"><span class="dot"></span>Instructor: Ram Prasad Shrestha</div></div></div><div class="card-footer"><div class="seats-txt"><strong>18</strong> / 25 seats</div><a href="#register" class="btn-sm-sky">Apply Now</a></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-health"></div><div class="card-header"><span class="cat-badge cat-health">Healthcare</span><span class="status-pill sp-open">Open</span></div><div class="card-body"><div class="card-title">Community Health Worker (CHW)</div><p class="card-desc">Community-level health delivery covering maternal health, nutrition, and first aid certification.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch Start: Baisakh 20, 2082</div><div class="meta-row"><span class="dot"></span>Duration: 6 Months · MoHP Recognized</div><div class="meta-row"><span class="dot"></span>Instructor: Dr. Sunita Rai</div></div></div><div class="card-footer"><div class="seats-txt"><strong>22</strong> / 30 seats</div><a href="#register" class="btn-sm-sky">Apply Now</a></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-voc"></div><div class="card-header"><span class="cat-badge cat-voc">Vocational</span><span class="status-pill sp-open">Open</span></div><div class="card-body"><div class="card-title">Tailoring &amp; Dress Making</div><p class="card-desc">Master garment construction, pattern making, and modern tailoring for self-employment and business setup.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch Start: Jestha 1, 2082</div><div class="meta-row"><span class="dot"></span>Duration: 4 Months · CTEVT Level 1</div><div class="meta-row"><span class="dot"></span>Instructor: Kabita Thapa</div></div></div><div class="card-footer"><div class="seats-txt"><strong>10</strong> / 20 seats</div><a href="#register" class="btn-sm-sky">Apply Now</a></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-biz"></div><div class="card-header"><span class="cat-badge cat-biz">Business</span><span class="status-pill sp-open">Open</span></div><div class="card-body"><div class="card-title">Digital Literacy &amp; E-Commerce</div><p class="card-desc">Internet skills, social media marketing, and online selling for small businesses and entrepreneurs in Sunsari.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch Start: Jestha 10, 2082</div><div class="meta-row"><span class="dot"></span>Duration: 45 Days · PTI Certificate</div><div class="meta-row"><span class="dot"></span>Instructor: Bikash Adhikari</div></div></div><div class="card-footer"><div class="seats-txt"><strong>28</strong> / 35 seats</div><a href="#register" class="btn-sm-sky">Apply Now</a></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-voc"></div><div class="card-header"><span class="cat-badge cat-voc">Vocational</span><span class="status-pill sp-open">Open</span></div><div class="card-body"><div class="card-title">Plumbing &amp; Sanitation Technology</div><p class="card-desc">Hands-on plumbing: pipe fitting, water supply systems, and sanitation infrastructure for rural and urban settings.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch Start: Ashadh 1, 2082</div><div class="meta-row"><span class="dot"></span>Duration: 3 Months · CTEVT Level 2</div><div class="meta-row"><span class="dot"></span>Instructor: Raju Karki</div></div></div><div class="card-footer"><div class="seats-txt"><strong>20</strong> / 25 seats</div><a href="#register" class="btn-sm-sky">Apply Now</a></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-tech"></div><div class="card-header"><span class="cat-badge cat-tech">Technology</span><span class="status-pill sp-open">Open</span></div><div class="card-body"><div class="card-title">Mobile Phone Repair &amp; Maintenance</div><p class="card-desc">Diagnose and repair Android and iOS devices including software flashing and hardware replacement.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch Start: Ashadh 15, 2082</div><div class="meta-row"><span class="dot"></span>Duration: 2 Months · PTI + CTEVT</div><div class="meta-row"><span class="dot"></span>Instructor: Suresh Tamang</div></div></div><div class="card-footer"><div class="seats-txt"><strong>15</strong> / 20 seats</div><a href="#register" class="btn-sm-sky">Apply Now</a></div></div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-ongoing">
+      <div class="training-grid">
+        <div class="training-card"><div class="card-color-bar ccb-tech"></div><div class="card-header"><span class="cat-badge cat-tech">Technology</span><span class="status-pill sp-ongoing">In Progress</span></div><div class="card-body"><div class="card-title">Basic Electrical Wiring &amp; Installation</div><p class="card-desc">Residential and commercial wiring, safety protocols, and Nepal Electricity Authority standards.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Started: Chaitra 1 · Ends: Baisakh 30, 2082</div><div class="meta-row"><span class="dot"></span>Enrolled: 24 Students</div></div><div class="prog-bar-wrap"><div class="prog-label"><span>Progress</span><span>50%</span></div><div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--orange);font-weight:600;">● Week 6 of 12</div><span class="btn-sm-ghost">Full</span></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-health"></div><div class="card-header"><span class="cat-badge cat-health">Healthcare</span><span class="status-pill sp-ongoing">In Progress</span></div><div class="card-body"><div class="card-title">Elderly Care &amp; Home Nursing</div><p class="card-desc">Basic nursing care, physiotherapy assistance, and emotional support for elderly patients at home.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Started: Falgun 15 · Ends: Ashadh 15, 2082</div><div class="meta-row"><span class="dot"></span>Enrolled: 18 Students</div></div><div class="prog-bar-wrap"><div class="prog-label"><span>Progress</span><span>48%</span></div><div class="prog-bar"><div class="prog-fill" style="width:48%;background:linear-gradient(90deg,var(--emerald),var(--teal))"></div></div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--orange);font-weight:600;">● Week 8 of 16</div><span class="btn-sm-ghost">Full</span></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-biz"></div><div class="card-header"><span class="cat-badge cat-biz">Business</span><span class="status-pill sp-ongoing">In Progress</span></div><div class="card-body"><div class="card-title">Cooperative Management &amp; Accounting</div><p class="card-desc">Accounting principles and cooperative financial management for community savings groups.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Started: Magh 10 · Ends: Baisakh 10, 2082</div><div class="meta-row"><span class="dot"></span>Enrolled: 30 Students</div></div><div class="prog-bar-wrap"><div class="prog-label"><span>Progress</span><span>82%</span></div><div class="prog-bar"><div class="prog-fill" style="width:82%;background:linear-gradient(90deg,var(--violet),var(--coral))"></div></div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--orange);font-weight:600;">● Week 10 of 12</div><span class="btn-sm-ghost">Full</span></div></div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-completed">
+      <div class="training-grid">
+        <div class="training-card"><div class="card-color-bar ccb-voc"></div><div class="card-header"><span class="cat-badge cat-voc">Vocational</span><span class="status-pill sp-completed">Completed</span></div><div class="card-body"><div class="card-title">Food Processing &amp; Preservation</div><p class="card-desc">Practical food preparation, packaging, quality control, and hygiene standards for cottage food industries.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch: Kartik – Poush 2081</div><div class="meta-row"><span class="dot"></span>Graduates: 28/30 · Employed: 22</div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--emerald);font-weight:600;">✓ 93% Graduation Rate</div><button class="btn-sm-ghost">View Report</button></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-tech"></div><div class="card-header"><span class="cat-badge cat-tech">Technology</span><span class="status-pill sp-completed">Completed</span></div><div class="card-body"><div class="card-title">Solar Panel Installation &amp; Maintenance</div><p class="card-desc">Solar system design, installation, and troubleshooting for rural electrification projects.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch: Shrawan – Ashwin 2081</div><div class="meta-row"><span class="dot"></span>Graduates: 24/25 · Employed: 20</div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--emerald);font-weight:600;">✓ 96% Graduation Rate</div><button class="btn-sm-ghost">View Report</button></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-health"></div><div class="card-header"><span class="cat-badge cat-health">Healthcare</span><span class="status-pill sp-completed">Completed</span></div><div class="card-body"><div class="card-title">Pharmacy Assistant Training</div><p class="card-desc">Pharmaceutical knowledge, drug dispensing, storage, and customer advisory skills for pharmacy assistants.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch: Chaitra 2080 – Baisakh 2081</div><div class="meta-row"><span class="dot"></span>Graduates: 32/35 · Employed: 28</div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--emerald);font-weight:600;">✓ 91% Graduation Rate</div><button class="btn-sm-ghost">View Report</button></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-biz"></div><div class="card-header"><span class="cat-badge cat-biz">Business</span><span class="status-pill sp-completed">Completed</span></div><div class="card-body"><div class="card-title">Entrepreneurship &amp; Business Planning</div><p class="card-desc">Business model canvas, market research, financial projection, and pitch skills for local entrepreneurs.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch: Mangsir – Falgun 2081</div><div class="meta-row"><span class="dot"></span>Graduates: 40/40 · Businesses Started: 14</div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--emerald);font-weight:600;">✓ 100% Graduation Rate</div><button class="btn-sm-ghost">View Report</button></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-voc"></div><div class="card-header"><span class="cat-badge cat-voc">Vocational</span><span class="status-pill sp-completed">Completed</span></div><div class="card-body"><div class="card-title">Motorcycle Repair &amp; Auto Mechanics</div><p class="card-desc">Engine diagnostics, two-wheeler repair, and basic automotive maintenance for garage employment.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch: Baisakh – Ashadh 2081</div><div class="meta-row"><span class="dot"></span>Graduates: 20/22 · Employed: 18</div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--emerald);font-weight:600;">✓ 91% Graduation Rate</div><button class="btn-sm-ghost">View Report</button></div></div>
+        <div class="training-card"><div class="card-color-bar ccb-tech"></div><div class="card-header"><span class="cat-badge cat-tech">Technology</span><span class="status-pill sp-completed">Completed</span></div><div class="card-body"><div class="card-title">Graphic Design &amp; DTP</div><p class="card-desc">Adobe Photoshop, Illustrator, CorelDraw for print media, signage, and digital content creation.</p><div class="card-meta"><div class="meta-row"><span class="dot"></span>Batch: Shrawan – Ashwin 2080</div><div class="meta-row"><span class="dot"></span>Graduates: 26/28 · Employed: 22</div></div></div><div class="card-footer"><div class="seats-txt" style="color:var(--emerald);font-weight:600;">✓ 93% Graduation Rate</div><button class="btn-sm-ghost">View Report</button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section id="register">
+  <div class="container">
+    <div class="sec-label">Enroll Today</div>
+    <h2 class="sec-title">Register for a Program</h2>
+    <p class="sec-desc">Fill out the form and our team will contact you within 24 hours to confirm your enrollment.</p>
+    <div class="reg-grid">
+      <div class="form-glass">
+        <h3>Enrollment Application</h3>
+        <div class="form-row"><div class="fg"><label>Full Name *</label><input type="text" id="r-name" placeholder="Your full name"></div><div class="fg"><label>Age *</label><input type="number" id="r-age" placeholder="Your age"></div></div>
+        <div class="form-row"><div class="fg"><label>Phone Number *</label><input type="tel" id="r-phone" placeholder="+977 98xxxxxxxx"></div><div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com"></div></div>
+        <div class="fg"><label>Select Training Program *</label><select id="r-prog"><option value="">-- Choose a Program --</option><option>Computer Hardware &amp; Networking</option><option>Community Health Worker</option><option>Tailoring &amp; Dress Making</option><option>Digital Literacy &amp; E-Commerce</option><option>Plumbing &amp; Sanitation Technology</option><option>Mobile Phone Repair &amp; Maintenance</option></select></div>
+        <div class="form-row"><div class="fg"><label>Education Level</label><select><option>Below SLC/SEE</option><option>SLC/SEE Pass</option><option>10+2 / Intermediate</option><option>Bachelor's</option></select></div><div class="fg"><label>Gender</label><select><option>Female</option><option>Male</option><option>Other</option></select></div></div>
+        <div class="fg"><label>Address *</label><input type="text" id="r-addr" placeholder="e.g., Itahari-4, Sunsari"></div>
+        <div class="fg"><label>Why do you want to join?</label><textarea rows="3" placeholder="Tell us about your motivation..."></textarea></div>
+        <button class="btn-sky" style="width:100%;text-align:center;padding:14px;border-radius:12px;" onclick="submitReg()">Submit Application →</button>
+      </div>
+      <div class="reg-info">
+        <h3 style="font-family:'Lora',serif;font-size:24px;margin-bottom:28px;">How to Enroll</h3>
+        <div class="reg-step"><div class="step-num">1</div><div class="step-body"><h4>Submit Application</h4><p>Fill out the online form or visit our Itahari office with your citizenship copy and 2 passport photos.</p></div></div>
+        <div class="reg-step"><div class="step-num">2</div><div class="step-body"><h4>Orientation Interview</h4><p>Attend a brief orientation where our team explains program details, schedule, and requirements.</p></div></div>
+        <div class="reg-step"><div class="step-num">3</div><div class="step-body"><h4>Fee &amp; Documentation</h4><p>Complete formalities. Many programs are fully subsidized for eligible candidates through partner NGO funding.</p></div></div>
+        <div class="reg-step"><div class="step-num">4</div><div class="step-body"><h4>Begin Training</h4><p>Start on the batch date. Receive materials, toolkit (select programs), and daily stipend if eligible.</p></div></div>
+        <div class="reg-note"><p><strong>📌 Free Programs Available:</strong> Several programs are free or heavily subsidized for women, Dalit, Janajati, persons with disabilities, and economically disadvantaged youth through our partner organizations.</p></div>
+        <div style="display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;">
+          <div style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;padding:16px 20px;flex:1;min-width:130px;"><div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Office Hours</div><div style="font-size:14px;color:#fff;font-weight:600;">Sun – Fri</div><div style="font-size:12px;color:rgba(255,255,255,.5);">9:00 AM – 5:00 PM</div></div>
+          <div style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;padding:16px 20px;flex:1;min-width:130px;"><div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Helpline</div><div style="font-size:14px;color:#fff;font-weight:600;">025-581XXX</div><div style="font-size:12px;color:rgba(255,255,255,.5);">+977 9852XXXXXX</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORTERS -->
+<section id="supporters">
+  <div class="container">
+    <div class="sec-label">Our Partners</div>
+    <h2 class="sec-title">Supported by Leading Organizations</h2>
+    <p class="sec-desc">Our programs are made possible through support of national and international NGOs, government bodies, and development partners.</p>
+    <div class="supporter-grid">
+      <div class="supporter-card"><div class="sup-logo" style="background:#DBEAFE;color:#1D4ED8;">UN</div><div class="sup-name">UNDP Nepal</div><div class="sup-type">International Organization</div><div class="sup-since">Partner since 2015</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#D1FAE5;color:#065F46;">SNV</div><div class="sup-name">SNV Nepal</div><div class="sup-type">Dutch Development Org.</div><div class="sup-since">Partner since 2016</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#FEF3C7;color:#92400E;">GIZ</div><div class="sup-name">GIZ Nepal</div><div class="sup-type">German Dev. Agency</div><div class="sup-since">Partner since 2018</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#FCE7F3;color:#9D174D;">SC</div><div class="sup-name">Save the Children</div><div class="sup-type">International NGO</div><div class="sup-since">Partner since 2014</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#EDE9FE;color:#5B21B6;">OXF</div><div class="sup-name">Oxfam Nepal</div><div class="sup-type">International NGO</div><div class="sup-since">Partner since 2017</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:var(--sky-light);color:var(--sky-darker);">ADB</div><div class="sup-name">Asian Dev. Bank</div><div class="sup-type">Multilateral Dev. Bank</div><div class="sup-since">Partner since 2019</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#ECFDF5;color:#064E3B;">CTEVT</div><div class="sup-name">CTEVT Nepal</div><div class="sup-type">Government Body</div><div class="sup-since">Affiliated since 2010</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#FFF7ED;color:#9A3412;">WFP</div><div class="sup-name">World Food Programme</div><div class="sup-type">UN Agency</div><div class="sup-since">Partner since 2020</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#F0F9FF;color:var(--sky-darker);">NPC</div><div class="sup-name">Nat. Planning Commission</div><div class="sup-type">Government of Nepal</div><div class="sup-since">Partner since 2013</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#CCFBF1;color:#134E4A;">HLV</div><div class="sup-name">Helvetas Nepal</div><div class="sup-type">Swiss Dev. NGO</div><div class="sup-since">Partner since 2016</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#FEF9C3;color:#713F12;">DDC</div><div class="sup-name">DDC Sunsari</div><div class="sup-type">District Dev. Committee</div><div class="sup-since">Partner since 2010</div></div>
+      <div class="supporter-card"><div class="sup-logo" style="background:#F5F3FF;color:#4C1D95;">WB</div><div class="sup-name">World Bank Nepal</div><div class="sup-type">Multilateral Dev. Bank</div><div class="sup-since">Partner since 2021</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <div class="sec-label">Our Impact</div>
+    <h2 class="sec-title">Numbers That Define Our Work</h2>
+    <div class="impact-grid">
+      <div class="impact-card ic1"><div class="impact-icon">🎓</div><div class="impact-num" data-target="1800" data-suffix="+">0+</div><div class="impact-label">Trained &amp; Certified Graduates since 2010</div></div>
+      <div class="impact-card ic2"><div class="impact-icon">👩</div><div class="impact-num" data-target="64" data-suffix="%">0%</div><div class="impact-label">Women &amp; Girls trained across all programs</div></div>
+      <div class="impact-card ic3"><div class="impact-icon">💼</div><div class="impact-num" data-target="98" data-suffix="%">0%</div><div class="impact-label">Employment or self-employment placement rate</div></div>
+      <div class="impact-card ic4"><div class="impact-icon">🏘️</div><div class="impact-num" data-target="40" data-suffix="+">0+</div><div class="impact-label">Villages and wards reached in Sunsari</div></div>
+      <div class="impact-card ic5"><div class="impact-icon">📚</div><div class="impact-num" data-target="24" data-suffix="">0</div><div class="impact-label">Distinct training programs offered</div></div>
+      <div class="impact-card ic6"><div class="impact-icon">🤝</div><div class="impact-num" data-target="14" data-suffix="">0</div><div class="impact-label">National &amp; international partner organizations</div></div>
+      <div class="impact-card ic7"><div class="impact-icon">🌱</div><div class="impact-num" data-target="320" data-suffix="+">0+</div><div class="impact-label">Small businesses started by graduates</div></div>
+      <div class="impact-card ic8"><div class="impact-icon">🏆</div><div class="impact-num" data-target="15" data-suffix="">0</div><div class="impact-label">Awards &amp; recognitions from national bodies</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="sec-label">Gallery</div>
+    <h2 class="sec-title">Life at PTI</h2>
+    <p class="sec-desc">Snapshots from our training sessions, graduation ceremonies, and community events.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item g1"><img src="images/samrikhadka.jpeg" alt=""><div class="g-overlay"></div><div class="g-label"><div class="title">DIRECTOR</div><div class="sub">Samir Kumar &amp; Khadka</div></div></div>
+      <div class="gallery-item g2"><img src="images/pyramid1.png" alt=""><div class="g-overlay"></div><div class="g-label"><div class="title">Graduation 2081</div><div class="sub">Certificate distribution ceremony</div></div></div>
+      <div class="gallery-item g3"><img src="images/pyramid3.png" alt=""><div class="g-overlay"></div><div class="g-label"><div class="title">Community Outreach</div><div class="sub">Field visits for needs assessment</div></div></div>
+      <div class="gallery-item g4"><img src="images/tailoring.jpeg" alt=""><div class="g-overlay"></div><div class="g-label"><div class="title">Women Empowerment</div><div class="sub">Tailoring batch — Itahari &amp; Dharan</div></div></div>
+      <div class="gallery-item g5"><img src="images/pyramidlogo.jpeg" alt=""><div class="g-overlay"></div><div class="g-label"><div class="title">Partner NGO Visit</div><div class="sub">GIZ Nepal visiting our facility</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-label">Get In Touch</div>
+    <h2 class="sec-title">Contact Us</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item"><div class="contact-icon">📍</div><div class="contact-body"><h4>Our Location</h4><p>Itahari-9, Pragati Chowk<br>Sunsari, Province No. 1, Nepal</p></div></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-body"><h4>Phone &amp; WhatsApp</h4><p>025-588526 (Office)<br>+977 98000993921(WhatsApp)</p></div></div>
+        <div class="contact-item"><div class="contact-icon">✉️</div><div class="contact-body"><h4>Email</h4><p>info@pyramidtechnical.org.np<br>admission@pyramidtechnical.org.np</p></div></div>
+        <div class="contact-item"><div class="contact-icon">🕐</div><div class="contact-body"><h4>Office Hours</h4><p>Sunday – Friday: 9:00 AM – 5:00 PM<br>Saturday: Closed</p></div></div>
+        <div class="map-box"><div style="font-size:32px;">🗺️</div><p>Itahari, Sunsari — Province No. 1, Nepal</p><a href="https://maps.google.com/?q=Itahari,Sunsari,Nepal" target="_blank">Open in Google Maps →</a></div>
+      </div>
+      <div class="contact-form-card">
+        <h3>Send Us a Message</h3>
+        <div class="form-row"><div class="fg"><label>Your Name</label><input type="text" id="c-name" placeholder="Full name"></div><div class="fg"><label>Phone / Email</label><input type="text" id="c-contact" placeholder="Phone or email"></div></div>
+        <div class="fg"><label>Subject</label><select><option>Program Inquiry</option><option>Partnership / Collaboration</option><option>Donation / Funding</option><option>Media / Press</option><option>General Question</option></select></div>
+        <div class="fg"><label>Your Message</label><textarea id="c-msg" rows="5" placeholder="How can we help you?"></textarea></div>
+        <button class="btn-sky" style="width:100%;text-align:center;padding:14px;border-radius:12px;" onclick="submitContact()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo footer-logo">
+          <div class="logo-tri"><svg viewBox="0 0 42 38" fill="none"><polygon points="21,2 40,36 2,36" fill="none" stroke="#38BDF8" stroke-width="2"/><polygon points="21,10 33,36 9,36" fill="none" stroke="#38BDF8" stroke-width="1.2" opacity="0.55"/><circle cx="21" cy="2" r="3" fill="#38BDF8"/></svg></div>
+          <div class="logo-words"><div class="n footer-logo">Pyramid Technical Institute</div><div class="s footer-logo">Itahari, Sunsari · Est. 2010</div></div>
+        </a>
+        <p>Registered NGO providing CTEVT-affiliated vocational and technical training to empower communities in Sunsari, Province No. 1, Nepal.</p>
+        <div class="footer-socials"><a href="#" class="social-btn">f</a><a href="#" class="social-btn">in</a><a href="#" class="social-btn">yt</a><a href="#" class="social-btn">tw</a></div>
+      </div>
+      <div class="footer-col"><h5>Programs</h5><ul><li><a href="#trainings">Computer Hardware &amp; Networking</a></li><li><a href="#trainings">Community Health Worker</a></li><li><a href="#trainings">Tailoring &amp; Dress Making</a></li><li><a href="#trainings">Digital Literacy</a></li><li><a href="#trainings">Plumbing &amp; Sanitation</a></li><li><a href="#trainings">View All Programs →</a></li></ul></div>
+      <div class="footer-col"><h5>Organization</h5><ul><li><a href="#about">About PTI</a></li><li><a href="#supporters">Our Partners</a></li><li><a href="#impact">Our Impact</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Annual Reports</a></li></ul></div>
+      <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="#register">Apply Now</a></li><li><a href="#">Verify Certificate</a></li><li><a href="#">Scholarship Info</a></li><li><a href="#">Alumni Network</a></li><li><a href="#">Donate</a></li><li><a href="#">Volunteer</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Pyramid Technical Institute, Itahari, Sunsari. All rights reserved.</p>
+      <p>Reg. No: 107615/069/070 | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function submitReg(){
+  const n=document.getElementById('r-name').value.trim();
+  const p=document.getElementById('r-phone').value.trim();
+  const pr=document.getElementById('r-prog').value;
+  const a=document.getElementById('r-addr').value.trim();
+  if(!n||!p||!pr||!a){showToast('⚠️ Please fill in all required fields.');return;}
+  showToast("✅ Application submitted! We'll contact you within 24 hours.");
+  ['r-name','r-phone','r-addr'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('r-age').value='';
+  document.getElementById('r-prog').selectedIndex=0;
+}
+
+function submitContact(){
+  const n=document.getElementById('c-name').value.trim();
+  const c=document.getElementById('c-contact').value.trim();
+  const m=document.getElementById('c-msg').value.trim();
+  if(!n||!c||!m){showToast('⚠️ Please fill in all fields.');return;}
+  showToast("✅ Message sent! We'll get back to you soon.");
+  ['c-name','c-contact','c-msg'].forEach(id=>{document.getElementById(id).value='';});
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-108,behavior:'smooth'});}
+  });
+});
+
+// Counter animation on scroll
+function animateCounters(){
+  document.querySelectorAll('.impact-num[data-target]').forEach(el=>{
+    const end=parseInt(el.dataset.target);
+    const suffix=el.dataset.suffix||'';
+    let start=0; const step=end/55;
+    const timer=setInterval(()=>{
+      start+=step;
+      if(start>=end){el.textContent=end+suffix;clearInterval(timer);return;}
+      el.textContent=Math.floor(start)+suffix;
+    },18);
+  });
+}
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounters();obs.disconnect();}});
+},{threshold:0.2});
+const impSec=document.getElementById('impact');
+if(impSec) obs.observe(impSec);
+
+// Subtle 3D tilt on training cards
+document.querySelectorAll('.training-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width-0.5)*6;
+    const y=((e.clientY-r.top)/r.height-0.5)*6;
+    card.style.transform=`translateY(-5px) rotateX(${-y}deg) rotateY(${x}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='';});
+});
+</script>
+</body>
+</html>
